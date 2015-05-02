@@ -16,15 +16,22 @@
  */
 package org.keycloak.example.multitenant.control;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import org.keycloak.adapters.HttpFacade;
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.KeycloakDeployment;
 import org.keycloak.adapters.KeycloakDeploymentBuilder;
+import org.keycloak.example.multitenant.model.Tenant;
 
 /**
  *
@@ -32,33 +39,51 @@ import org.keycloak.adapters.KeycloakDeploymentBuilder;
  */
 public class PathBasedKeycloakConfigResolver implements KeycloakConfigResolver {
 
-    private final Map<String, KeycloakDeployment> cache = new ConcurrentHashMap<String, KeycloakDeployment>();
+	private final Map<String, KeycloakDeployment> cache = new ConcurrentHashMap<String, KeycloakDeployment>();
 
-    @Override
-    public KeycloakDeployment resolve(HttpFacade.Request request) {
-        String path = request.getURI();
-        int multitenantIndex = path.indexOf("multitenant/");
-        if (multitenantIndex == -1) {
-            throw new IllegalStateException("Not able to resolve realm from the request path!");
-        }
+	@Override
+	public KeycloakDeployment resolve(HttpFacade.Request request) {
+		String path = request.getURI();
+		int multitenantIndex = path.indexOf("multitenant/");
+		if (multitenantIndex == -1) {
+			throw new IllegalStateException(
+					"Not able to resolve realm from the request path!");
+		}
 
-        String realm = path.substring(path.indexOf("multitenant/")).split("/")[1];
-        if (realm.contains("?")) {
-            realm = realm.split("\\?")[0];
-        }
+		String realm = path.substring(path.indexOf("multitenant/")).split("/")[1];
+		if (realm.contains("?")) {
+			realm = realm.split("\\?")[0];
+		}
 
-        KeycloakDeployment deployment = cache.get(realm);
-        if (null == deployment) {
-            // not found on the simple cache, try to load it from the file system
-            InputStream is = getClass().getResourceAsStream("/" + realm + "-keycloak.json");
-            if (is == null) {
-                throw new IllegalStateException("Not able to find the file /" + realm + "-keycloak.json");
-            }
-            deployment = KeycloakDeploymentBuilder.build(is);
-            cache.put(realm, deployment);
-        }
+		KeycloakDeployment deployment = cache.get(realm);
+		if (null == deployment) {
+			InputStream is = getInputStream(realm);
+			if (is == null) {
+				throw new IllegalStateException("Not able to find the file /"
+						+ realm + "-keycloak.json");
+			}
+			deployment = KeycloakDeploymentBuilder.build(is);
+			cache.put(realm, deployment);
+		}
 
-        return deployment;
-    }
+		return deployment;
+	}
+
+	private InputStream getInputStream(String realm) {
+		EntityManagerFactory emf = Persistence
+				.createEntityManagerFactory("keycloak");
+		EntityManager em = emf.createEntityManager();
+		 Query query = em.createNamedQuery("findTenantByName",
+		 Tenant.class);
+//		Query query = em.createQuery(
+//				"select t from Tenant t where t.realm = :realm", Tenant.class);
+		Tenant tenant = (Tenant) query.setParameter("realm", realm)
+				.getSingleResult();
+		if (null != tenant) {
+			return new ByteArrayInputStream(tenant.getJson().getBytes(
+					StandardCharsets.UTF_8));
+		}
+		return null;
+	}
 
 }
