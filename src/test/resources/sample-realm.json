@@ -1,0 +1,56 @@
+{
+    "id": "sample",
+    "realm": "sample",
+    "enabled": true,
+    "sslRequired": "external",
+    "passwordCredentialGrantAllowed": true,
+    "requiredCredentials": [ "password" ],
+    "users" : [
+        {
+            "username" : "sample-administrator",
+            "enabled": true,
+            "credentials" : [
+                { "type" : "password",
+                    "value" : "password" }
+            ],
+            "realmRoles": [ "user","admin" ],
+            "applicationRoles": {
+                "realm-management": [ "realm-admin" ]
+            }
+        }
+    ],
+    "oauthClients": [
+        {
+            "name": "admin-client",
+            "enabled": true,
+            "publicClient": true,
+            "directGrantsOnly": true,
+            "fullScopeAllowed": true
+        }
+    ],    
+    "roles" : {
+        "realm" : [
+            {
+                "name": "user",
+                "description": "User privileges"
+            },
+            {
+                "name": "admin",
+                "description": "Administrator privileges"
+            }
+        ]
+    },
+    "applications": [
+        {
+            "name": "multi-tenant",
+            "enabled": true,
+            "adminUrl": "/multitenant/sample",
+            "baseUrl": "/multitenant/sample",
+            "redirectUris": [
+                "/multitenant/sample/*"
+            ],
+            "secret": "password"
+        }
+    ]
+    
+}

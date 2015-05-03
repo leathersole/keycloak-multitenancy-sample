@@ -1,0 +1,9 @@
+server.auth.url=http\://localhost\:8080/auth
+path.multitenant=multitenant
+realm.master.user.proxy=realm_manager_proxy
+realm.master.user.pass=password
+realm.master.oauth.id=realm_manager_proxy
+realm.master.oauth.secret=secret
+realm.template.json=/realm-template.json
+realm.master.admin.id=admin
+realm.master.admin.pass=password!
