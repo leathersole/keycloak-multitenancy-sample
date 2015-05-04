@@ -91,7 +91,7 @@ public class PathBasedKeycloakConfigResolver implements KeycloakConfigResolver {
 			throw new IllegalStateException(
 					"The request path matches multiple pathes!");
 		} else {
-			is = getClass().getResourceAsStream("/guest-oauth.json");
+			is = getClass().getResourceAsStream("/dummy.json");
 			deployment = KeycloakDeploymentBuilder.build(is);
 		}
 		return deployment;
@@ -107,6 +107,7 @@ public class PathBasedKeycloakConfigResolver implements KeycloakConfigResolver {
 		Query query = em.createNamedQuery(findTenantByName, Tenant.class);
 		List<Tenant> tenants = (List<Tenant>) query
 				.setParameter("realm", realm).getResultList();
+		em.close();
 		if (tenants.size() == 1) {
 			return new ByteArrayInputStream(tenants.get(0).getJson()
 					.getBytes(StandardCharsets.UTF_8));

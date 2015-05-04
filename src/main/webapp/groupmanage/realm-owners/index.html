@@ -3,9 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	</script>
 </head>
 <body>
-hello group owner!
-
+	hello group owner!
+	<form id="generate_realm" action="/multitenant/rest/realms/"
+		method="post">
+		Group name: <input id="realm_name" name="realm_name" type="text" /><br />
+		Administrator Id: <input id="admin_name" name="admin_name" type="text" /><br />
+		Administrator Password: <input id="admin_pass" name="admin_pass"
+			type="text" /><br /> <input type="submit" value="submit" />
+	</form>
 </body>
 </html>

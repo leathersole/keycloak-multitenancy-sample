@@ -62,6 +62,7 @@ public class RealmGenerator {
 			RealmRepresentation realmRep = parser
 					.readValueAs(RealmRepresentation.class);
 			parser.close();
+			realmRep.setId(realmName);
 			realmRep.setRealm(realmName);
 			realmRep.getUsers().get(0).setUsername(adminName);
 			realmRep.getUsers().get(0).getCredentials().get(0)
@@ -102,6 +103,7 @@ public class RealmGenerator {
 		newTenant.setRealm(realmName);
 		newTenant.setJson(json);
 		em.persist(newTenant);
+		em.close();
 	}
 
 	public String getJson(String realmName, String appName, String token)

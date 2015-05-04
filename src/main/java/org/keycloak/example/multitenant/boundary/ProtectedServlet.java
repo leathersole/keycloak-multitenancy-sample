@@ -58,4 +58,31 @@ public class ProtectedServlet extends HttpServlet {
 
         writer.write(String.format("<br/><a href=\"/multitenant/%s/logout\">Logout</a>", realm));
     }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String realm = req.getPathInfo().split("/")[1];
+        if (realm.contains("?")) {
+            realm = realm.split("\\?")[0];
+        }
+
+        if (req.getPathInfo().contains("logout")) {
+            req.logout();
+            resp.sendRedirect(req.getContextPath() + "/" + realm);
+            return;
+        }
+
+        KeycloakPrincipal principal = (KeycloakPrincipal) req.getUserPrincipal();
+
+        resp.setContentType("text/html");
+        PrintWriter writer = resp.getWriter();
+
+        writer.write("Realm: ");
+        writer.write(principal.getKeycloakSecurityContext().getIdToken().getIssuer());
+
+        writer.write("<br/>User: ");
+        writer.write(principal.getKeycloakSecurityContext().getIdToken().getPreferredUsername());
+
+        writer.write(String.format("<br/><a href=\"/multitenant/%s/logout\">Logout</a>", realm));
+    }
+
  }
