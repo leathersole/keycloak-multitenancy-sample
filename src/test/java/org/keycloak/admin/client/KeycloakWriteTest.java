@@ -29,7 +29,7 @@ public class KeycloakWriteTest {
 	String authServer = "http://localhost:8080/auth";
 
 	@Test
-	@Ignore
+	@Ignore("This depends on a Keycloak server environment")
 	public void shouldCreateAndDeleteRealm() throws Exception {
 		Keycloak keycloak = getClient();
 		RealmRepresentation realm = new RealmRepresentation();
@@ -65,7 +65,7 @@ public class KeycloakWriteTest {
 	}
 
 	@Test
-	@Ignore
+	@Ignore("This depends on a Keycloak server environment")
 	public void shouldMoveToRealm() throws Exception {
 		Keycloak keycloak = Keycloak.getInstance(authServer, "master",
 				"realm_manager_proxy", "password", "realm_manager_proxy",
@@ -82,6 +82,7 @@ public class KeycloakWriteTest {
 	}
 
 	@Test
+	@Ignore("This depends on a Keycloak server environment")
 	public void testName() throws Exception {
 		Keycloak keycloak2 = Keycloak.getInstance(authServer, "sample",
 				"sample-administrator", "password", "admin-client");

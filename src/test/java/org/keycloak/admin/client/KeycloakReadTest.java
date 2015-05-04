@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.keycloak.admin.client.resource.ApplicationsResource;
 import org.keycloak.admin.client.resource.RealmResource;
@@ -25,18 +26,11 @@ public class KeycloakReadTest {
 	}
 	
 	@Test
+	@Ignore("This depends on a Keycloak server environment")
 	public void shuldGetRealmInfo() throws Exception {
 		RealmRepresentation realm = keycloak.realm("tenant1")
 				.toRepresentation();
 		assertThat(realm.getRealm(), is(equalTo("tenant1")));
-
-		// ApplicationsResource applications = keycloak.realm("tenant1")
-		// .applications();
-		// for (ApplicationRepresentation app : applications.findAll()) {
-		// System.out.println(app.getName());
-		// System.out.println(app.getBaseUrl());
-		// }
-
 	}
 	
 }

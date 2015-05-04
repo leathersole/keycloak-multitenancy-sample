@@ -10,11 +10,13 @@ import java.security.Security;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMWriter;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.keycloak.util.PemUtils;
 
 public class KeyPairTest {
 	@Test
+	@Ignore("This is for feasibility study")
 	public void testName() throws Exception {
 		if (Security.getProvider("BC") == null)
 			Security.addProvider(new BouncyCastleProvider());

@@ -11,6 +11,7 @@ import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.RealmRepresentation;
@@ -45,6 +46,7 @@ public class RealmAdminTest {
 	}
 
 	@Test
+	@Ignore("This depends on a Keycloak server environment")
 	public void adminShuldGetUserName() throws Exception {
 		Keycloak keycloak2 = Keycloak.getInstance(authServer, "sample",
 				"sample-administrator", "password", "admin-client");

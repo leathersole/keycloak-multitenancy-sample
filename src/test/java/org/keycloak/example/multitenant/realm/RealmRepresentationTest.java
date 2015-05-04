@@ -8,6 +8,7 @@ import java.io.File;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonToken;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.keycloak.representations.idm.RealmRepresentation;
 import org.keycloak.util.JsonSerialization;
@@ -27,6 +28,7 @@ public class RealmRepresentationTest {
 	 * "Administrator privileges" } ] } }
 	 */
 	@Test
+	@Ignore("This depends on a Keycloak server environment")
 	public void shouldRealmJsonCanBeParse() throws Exception {
 		JsonFactory factory = JsonSerialization.mapper.getJsonFactory();
 		JsonParser parser = factory.createJsonParser(new File(
