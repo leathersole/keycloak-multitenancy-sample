@@ -16,12 +16,18 @@
  */
 package org.keycloak.example.multitenant.control;
 
+import static net.seannos.example.multitenant.util.Constants.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -29,7 +35,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import net.seannos.example.multitenant.model.Tenant;
-import net.seannos.example.multitenant.util.Constants;
 import net.seannos.example.multitenant.util.PropertyStore;
 
 import org.keycloak.adapters.HttpFacade;
@@ -51,36 +56,49 @@ public class PathBasedKeycloakConfigResolver implements KeycloakConfigResolver {
 	@Override
 	public KeycloakDeployment resolve(HttpFacade.Request request) {
 
-		String multitenant = PropertyStore.get(Constants.PROP_MULTITENANT_PATH)
-				+ "/";
-
 		String path = request.getURI();
-		int multitenantIndex = path.indexOf(multitenant);
-		if (multitenantIndex == -1) {
-			throw new IllegalStateException(
-					"Not able to resolve realm from the request path!");
-		}
 
-		String realm = path.substring(path.indexOf(multitenant)).split("/")[1];
-		if (realm.contains("?")) {
-			realm = realm.split("\\?")[0];
-		}
-
-		KeycloakDeployment deployment = cache.get(realm);
-		if (null == deployment) {
-			InputStream is = getInputStream(realm);
-			if (is == null) {
-				throw new IllegalStateException(
-						"Not able to find any records about " + realm);
+		// String multitenant = PropertyStore.get(PROP_MULTITENANT_PATH) + "/";
+		String[] multitenants = PropertyStore.get(PROP_MULTITENANT_PATH).split(
+				",");
+		List<String> collect = Arrays.stream(multitenants)
+				.filter(s -> path.indexOf(s) != -1)
+				.collect(Collectors.toList());
+		KeycloakDeployment deployment = null;
+		InputStream is = null;
+		if (collect.size() == 1) {
+			String multitenant = collect.get(0) + "/";
+			String realm = path.substring(
+					path.indexOf(multitenant) + multitenant.length())
+					.split("/")[0];
+			if (realm.contains("?")) {
+				realm = realm.split("\\?")[0];
 			}
-			deployment = KeycloakDeploymentBuilder.build(is);
-			cache.put(realm, deployment);
-		}
 
+			deployment = cache.get(realm);
+			if (null == deployment) {
+				is = getRealmJsonAsInputStream(realm);
+				// throw new IllegalStateException(
+				// "Not able to find any records about " + realm);
+				if (is == null) {
+					is = getClass().getResourceAsStream("/dummy.json");
+				}
+				deployment = KeycloakDeploymentBuilder.build(is);
+				cache.put(realm, deployment);
+			}
+
+		} else if (collect.size() > 1) {
+			throw new IllegalStateException(
+					"The request path matches multiple pathes!");
+		} else {
+			is = getClass().getResourceAsStream("/guest-oauth.json");
+			deployment = KeycloakDeploymentBuilder.build(is);
+		}
 		return deployment;
+
 	}
 
-	private InputStream getInputStream(String realm) {
+	private InputStream getRealmJsonAsInputStream(String realm) {
 		String findTenantByName = "findTenantByName";
 
 		EntityManagerFactory emf = Persistence

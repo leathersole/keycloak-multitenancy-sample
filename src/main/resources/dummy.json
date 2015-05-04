@@ -1,0 +1,10 @@
+{
+  "realm": "guest",
+  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCREhutaCbEfVxFfYEk6mvRHMOW0bSq34RTxFOvz0cqJoTE7E0EL/7OIsmtEPPj7sVFTzo9BGjtmunf20ZXVuGDg4K4nncSRXDb11n9x3LBW5aMz/gBYCkuFeX75rlWXfFQMkWR0YAWwfIJdM7vUyp8F4ONOs+v/j9Gh2UrjmWncwIDAQAB",
+  "auth-server-url": "http://localhost:8080/auth",
+  "ssl-required": "external",
+  "resource": "guest",
+  "credentials": {
+    "secret": "624fa980-50db-49bc-bc7e-4650f6674252"
+  }
+}

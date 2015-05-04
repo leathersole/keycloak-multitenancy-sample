@@ -2,7 +2,7 @@ package net.seannos.example.multitenant.util;
 
 public class Constants {
 	public static String MASTER_REALM = "master";
-	public static String PROP_MULTITENANT_PATH = "multitenant";
+	public static String PROP_MULTITENANT_PATH = "path.multitenant";
 	public static String PROP_SERVER_AUTH_URL = "server.auth.url";
 	public static String PROP_REALM_TEMPLATE_JSON = "realm.template.json";
 	public static String PROP_REALM_MASTER_OAUTH_ID = "realm.master.oauth.id";

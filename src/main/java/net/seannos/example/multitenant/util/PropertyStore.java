@@ -10,7 +10,7 @@ public class PropertyStore {
 	private static void init(){
 		props = new Properties();
 		InputStream is = PropertyStore.class.getResourceAsStream(
-				"/WEB-INF/conf/system.properties");
+				"/system.properties");
 		try {
 			props.load(is);
 		} catch (IOException e) {

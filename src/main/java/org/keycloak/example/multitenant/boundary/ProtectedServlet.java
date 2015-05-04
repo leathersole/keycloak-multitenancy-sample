@@ -29,7 +29,7 @@ import org.keycloak.KeycloakPrincipal;
  *
  * @author Juraci Paixão Kröhling <juraci at kroehling.de>
  */
-@WebServlet(urlPatterns = "/*")
+@WebServlet(urlPatterns = "/debug/*")
 public class ProtectedServlet extends HttpServlet {
 
     @Override
