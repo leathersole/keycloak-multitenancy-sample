@@ -4,5 +4,5 @@ target
 .classpath
 *.swp
 /src/main/webapp/WEB-INF/conf/system.properties
-/src/test/resources/system.properties.example
+/src/test/resources/system.properties
 
