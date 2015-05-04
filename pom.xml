@@ -68,6 +68,13 @@
 			<scope>provided</scope>
 		</dependency>
 
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss WildFly -->
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
 		<!-- Contains KeycloakDeployment and KeycloakConfigResolver -->
 		<dependency>
 			<groupId>org.keycloak</groupId>

@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.security.KeyPair;
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -29,6 +30,7 @@ import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.RealmRepresentation;
 import org.keycloak.util.JsonSerialization;
 
+@Named
 public class RealmGenerator {
 
 	static String authServer = PropertyStore.get(PROP_SERVER_AUTH_URL);
