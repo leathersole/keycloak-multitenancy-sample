@@ -62,56 +62,37 @@
 	</dependencyManagement>
 
 	<dependencies>
+	    <!-- Servlet API -->
 		<dependency>
 			<groupId>org.jboss.spec.javax.servlet</groupId>
 			<artifactId>jboss-servlet-api_3.1_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
-        <!-- Import the CDI API, we use provided scope as the API is included in JBoss WildFly -->
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        
-		<!-- Contains KeycloakDeployment and KeycloakConfigResolver -->
+		<!-- CDI API -->
 		<dependency>
-			<groupId>org.keycloak</groupId>
-			<artifactId>keycloak-adapter-core</artifactId>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
-		<!-- Contains KeycloakPrincipal -->
-		<dependency>
-			<groupId>org.keycloak</groupId>
-			<artifactId>keycloak-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.keycloak</groupId>
-			<artifactId>keycloak-admin-client</artifactId>
-		</dependency>
-
-		<!-- Import the JPA API, we use provided scope as the API is included in 
-			JBoss WildFly -->
+		<!-- JPA API -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- Import the JPA API, we use provided scope as the API is included in 
-			JBoss WildFly -->
 		<dependency>
 			<groupId>org.jboss.spec.javax.transaction</groupId>
 			<artifactId>jboss-transaction-api_1.2_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- JAX-RS and RestEasy apis -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>jaxrs-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
@@ -124,6 +105,22 @@
 			<version>3.0.10.Final</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- Keycloak API -->
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-admin-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-adapter-core</artifactId>
+		</dependency>
+
+		<!-- Bouncy Casle -->
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15on</artifactId>
@@ -134,17 +131,26 @@
 			<artifactId>bcpkix-jdk15on</artifactId>
 			<version>1.50</version>
 		</dependency>
+		
+		<!-- Apache HttpClient API -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- JUnit, Arquillian and for testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.arquillian.junit</groupId>
 			<artifactId>arquillian-junit-container</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.jboss.arquillian.protocol</groupId>
 			<artifactId>arquillian-protocol-servlet</artifactId>
@@ -157,6 +163,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<finalName>multitenant</finalName>
 		<plugins>
