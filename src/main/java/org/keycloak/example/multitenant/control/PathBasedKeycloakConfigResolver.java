@@ -102,12 +102,11 @@ public class PathBasedKeycloakConfigResolver implements KeycloakConfigResolver {
 		String findTenantByName = "findTenantByName";
 
 		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("keycloak");
+				.createEntityManagerFactory("multitenant");
 		EntityManager em = emf.createEntityManager();
 		Query query = em.createNamedQuery(findTenantByName, Tenant.class);
 		List<Tenant> tenants = (List<Tenant>) query
 				.setParameter("realm", realm).getResultList();
-		em.close();
 		if (tenants.size() == 1) {
 			return new ByteArrayInputStream(tenants.get(0).getJson()
 					.getBytes(StandardCharsets.UTF_8));

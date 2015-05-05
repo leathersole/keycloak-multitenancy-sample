@@ -2,6 +2,7 @@ package net.seannos.example.multitenant.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.NamedQuery;
@@ -12,20 +13,21 @@ import javax.persistence.Table;
 @NamedQuery(name = "findTenantByName", query = "from Tenant where realm = :realm")
 public class Tenant {
 
-	long id;
+	int id;
 	String realm;
 	String json;
 
 	@Id
-	public long getId() {
+	@GeneratedValue
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	@Column(nullable = true, unique = true)
+	@Column(nullable = false, unique = true)
 	public String getRealm() {
 		return realm;
 	}

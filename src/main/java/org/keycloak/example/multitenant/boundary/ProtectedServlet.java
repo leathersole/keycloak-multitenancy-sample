@@ -45,18 +45,18 @@ public class ProtectedServlet extends HttpServlet {
             return;
         }
 
-        KeycloakPrincipal principal = (KeycloakPrincipal) req.getUserPrincipal();
-
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
-
-        writer.write("Realm: ");
-        writer.write(principal.getKeycloakSecurityContext().getIdToken().getIssuer());
-
-        writer.write("<br/>User: ");
-        writer.write(principal.getKeycloakSecurityContext().getIdToken().getPreferredUsername());
-
-        writer.write(String.format("<br/><a href=\"/multitenant/%s/logout\">Logout</a>", realm));
+//        KeycloakPrincipal principal = (KeycloakPrincipal) req.getUserPrincipal();
+//
+//        resp.setContentType("text/html");
+//        PrintWriter writer = resp.getWriter();
+//
+//        writer.write("Realm: ");
+//        writer.write(principal.getKeycloakSecurityContext().getIdToken().getIssuer());
+//
+//        writer.write("<br/>User: ");
+//        writer.write(principal.getKeycloakSecurityContext().getIdToken().getPreferredUsername());
+//
+//        writer.write(String.format("<br/><a href=\"/multitenant/%s/logout\">Logout</a>", realm));
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -70,19 +70,22 @@ public class ProtectedServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/" + realm);
             return;
         }
+      resp.setContentType("text/html");
+      PrintWriter writer = resp.getWriter();
+      writer.write("created.");
 
-        KeycloakPrincipal principal = (KeycloakPrincipal) req.getUserPrincipal();
-
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
-
-        writer.write("Realm: ");
-        writer.write(principal.getKeycloakSecurityContext().getIdToken().getIssuer());
-
-        writer.write("<br/>User: ");
-        writer.write(principal.getKeycloakSecurityContext().getIdToken().getPreferredUsername());
-
-        writer.write(String.format("<br/><a href=\"/multitenant/%s/logout\">Logout</a>", realm));
+//        KeycloakPrincipal principal = (KeycloakPrincipal) req.getUserPrincipal();
+//
+//        resp.setContentType("text/html");
+//        PrintWriter writer = resp.getWriter();
+//
+//        writer.write("Realm: ");
+//        writer.write(principal.getKeycloakSecurityContext().getIdToken().getIssuer());
+//
+//        writer.write("<br/>User: ");
+//        writer.write(principal.getKeycloakSecurityContext().getIdToken().getPreferredUsername());
+//
+//        writer.write(String.format("<br/><a href=\"/multitenant/%s/logout\">Logout</a>", realm));
     }
 
  }

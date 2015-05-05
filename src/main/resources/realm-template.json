@@ -13,7 +13,7 @@
                 { "type" : "password",
                     "value" : "password" }
             ],
-            "realmRoles": [ "user","admin" ],
+            "realmRoles": [ "user","admin","group-owner" ],
             "applicationRoles": {
                 "realm-management": [ "realm-admin" ]
             }
@@ -37,6 +37,10 @@
             {
                 "name": "admin",
                 "description": "Administrator privileges"
+            },
+            {
+                "name": "group-owner",
+                "description": "Group owner privileges"
             }
         ]
     },
@@ -52,5 +56,4 @@
             "secret": "password"
         }
     ]
-    
 }

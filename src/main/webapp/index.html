@@ -5,7 +5,10 @@
 <title>Festival staff management system</title>
 </head>
 <body>
-hello world!
-<a href="groupmanage/realm-owners"> login as a realm manager </a>
+	hello world!
+	<a href="groupmanage/realm-owners"> login as a realm manager </a>
+	<form method="post" action="/multitenant/debug/tenant?command=initializedb">
+		<input type="submit" value="initialize tenant table" />
+	</form>
 </body>
 </html>

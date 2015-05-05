@@ -14,8 +14,8 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
-	<persistence-unit name="keycloak" transaction-type="RESOURCE_LOCAL">
-		<jta-data-source>java:jboss/datasources/MultiTenantTestDS</jta-data-source>
+	<persistence-unit name="multitenant" transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>java:jboss/datasources/MultiTenantDS</non-jta-data-source>
 		<class>net.seannos.example.multitenant.model.Tenant</class>
 		<!-- If you are running in a production environment, add a managed data 
 			source, this example data source is just for development and testing! -->
@@ -23,10 +23,25 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 			can find it in the source at src/main/webapp/WEB-INF/greeter-quickstart-ds.xml -->
 		<properties>
 			<!-- Properties for Hibernate -->
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
 			<!-- -->
 			<property name="jboss.as.jpa.managed" value="false" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+		</properties>
+	</persistence-unit>
+	<persistence-unit name="multitenant" transaction-type="JTA">
+		<jta-data-source>java:jboss/datasources/MultiTenantTestDS2</jta-data-source>
+		<!-- If you are running in a production environment, add a managed data 
+			source, this example data source is just for development and testing! -->
+		<!-- The datasource is deployed as WEB-INF/greeter-quickstart-ds.xml, you 
+			can find it in the source at src/main/webapp/WEB-INF/greeter-quickstart-ds.xml -->
+		<properties>
+			<!-- Properties for Hibernate -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<!-- -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 		</properties>
 	</persistence-unit>
 </persistence>
