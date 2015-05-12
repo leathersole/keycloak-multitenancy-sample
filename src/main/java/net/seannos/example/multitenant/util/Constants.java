@@ -9,4 +9,5 @@ public class Constants {
 	public static String PROP_REALM_MASTER_OAUTH_SECRET = "realm.master.oauth.secret";
 	public static String PROP_REALM_MATER_USER_PROXY = "realm.master.user.proxy";
 	public static String PROP_REALM_MATER_USER_PASS = "realm.master.user.pass";
+	public static String PROP_REALM_OWNERS_NAME = "realm.owners.name";
 }

@@ -25,6 +25,6 @@ public class Realm {
 			throws URISyntaxException {
 		realmGenerator.generate(realmName, adminName, adminPass);
 		return Response.temporaryRedirect(
-				new URI("http://localhost:8080/multitenant/debug/" + realmName)).build();
+				new URI("http://localhost:8080/multitenant/groupmanage/" + realmName)).build();
 	}
 }

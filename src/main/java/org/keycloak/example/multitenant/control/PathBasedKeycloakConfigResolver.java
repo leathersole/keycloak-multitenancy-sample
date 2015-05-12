@@ -58,7 +58,6 @@ public class PathBasedKeycloakConfigResolver implements KeycloakConfigResolver {
 
 		String path = request.getURI();
 
-		// String multitenant = PropertyStore.get(PROP_MULTITENANT_PATH) + "/";
 		String[] multitenants = PropertyStore.get(PROP_MULTITENANT_PATH).split(
 				",");
 		List<String> collect = Arrays.stream(multitenants)
